@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -33,13 +32,15 @@ public class Main {
             40, 40, 40, 40, 40, 40, 70, 70, 70, 70, 70, 70, 70, 70, 10, 10, 10, 10, 10, 10, 85, 85, 85, 85, 5, 5, 5,
             50, 50, 50, 0, 0, 15, 15, 75, 75, 80, 80, 90, 90, 45};
 
-    /*
-    finalList is an ArrayList that will contain the user's sample data
-    which we will eventually pull from the other lists using the methods
-    below
-     */
+    private ArrayList<ArrayList<Integer>> finalArrayList = new ArrayList<>();
 
-    private ArrayList<Integer> finalList = new ArrayList<>();
+    private ArrayList<Integer> newList = new ArrayList<>();
+
+    private ArrayList<Integer> newList2 = new ArrayList<>();
+
+    private ArrayList<Integer> newList3 = new ArrayList<>();
+
+    private ArrayList<Integer> newList4 = new ArrayList<>();
 
     // should this method's contents just be apart of the main method?
     private void mainMenu() {
@@ -69,16 +70,23 @@ public class Main {
     }
 
     private void getFinalList(Integer lists, Integer sampleSize, Integer choice) {
-        setFinalList(finalList, lists, sampleSize);
+        /*
+        let's clear our lists and ArrayList just in case the
+        program has already ran and looped before
+        */
+
+        newList.clear();
+        newList2.clear();
+        newList3.clear();
+        newList4.clear();
+        finalArrayList.clear();
+
+        setFinalList(finalArrayList, lists, sampleSize);
 
         String name = getName(choice);
         System.out.println("\nfinal list for:: " + name);
 
-        for (Integer i: finalList) {
-            // iterate through each value stored in the
-            // final list and spit it back to the user
-            System.out.println(i);
-        }
+        System.out.println(newList + "\n" + newList2 + "\n" + newList3 + "\n" + newList4);
 
         System.out.println("\n");
     }
@@ -115,39 +123,100 @@ public class Main {
         return whichList;
     }
 
-    private void setFinalList(List<Integer> finalList, Integer lists, Integer sampleSize) {
+    private void setFinalList(ArrayList<ArrayList<Integer>> finalArrayList, Integer lists, Integer sampleSize) {
         /*
         here, we will attempt to finalize the user's data in our list
 
         notice that we call the method getRandomList, which can be found above
+
+        TODO:: allow the user to create as many lists as possible without limiting them to a max of 4
+        TODO:: further cleanup, as this current implementation is ugly and not the best
         */
 
         if (lists == 1) {
-            while (finalList.size() < sampleSize) {
-                int[] whichList = getRandomList(1);
-                int rand = ThreadLocalRandom.current().nextInt(0, whichList.length);
-                finalList.add(whichList[rand]);
+            while (finalArrayList.size() < lists) {
+                while (newList.size() < sampleSize) {
+                    int[] whichList = getRandomList(1);
+                    int whichIndex = ThreadLocalRandom.current().nextInt(0, whichList.length);
+                    int rand = whichList[whichIndex];
+                    newList.add(rand);
+                    finalArrayList.add(newList);
+                }
             }
         }
         else if (lists == 2) {
-            while (finalList.size() < sampleSize) {
-                int[] whichList = getRandomList(2);
-                int rand = ThreadLocalRandom.current().nextInt(0, whichList.length);
-                finalList.add(whichList[rand]);
+            while (finalArrayList.size() < lists) {
+                while (newList.size() < sampleSize) {
+                    int[] whichList = getRandomList(1);
+                    int whichIndex = ThreadLocalRandom.current().nextInt(0, whichList.length);
+                    int rand = whichList[whichIndex];
+                    newList.add(rand);
+                    finalArrayList.add(newList);
+                }
+                while (newList2.size() < sampleSize) {
+                    int[] whichList = getRandomList(2);
+                    int whichIndex = ThreadLocalRandom.current().nextInt(0, whichList.length);
+                    int rand = whichList[whichIndex];
+                    newList2.add(rand);
+                    finalArrayList.add(newList2);
+                }
             }
         }
         else if (lists == 3) {
-            while (finalList.size() < sampleSize) {
-                int[] whichList = getRandomList(3);
-                int rand = ThreadLocalRandom.current().nextInt(0, whichList.length);
-                finalList.add(whichList[rand]);
+            while (finalArrayList.size() < lists) {
+                while (newList.size() < sampleSize) {
+                    int[] whichList = getRandomList(1);
+                    int whichIndex = ThreadLocalRandom.current().nextInt(0, whichList.length);
+                    int rand = whichList[whichIndex];
+                    newList.add(rand);
+                    finalArrayList.add(newList);
+                }
+                while (newList2.size() < sampleSize) {
+                    int[] whichList = getRandomList(2);
+                    int whichIndex = ThreadLocalRandom.current().nextInt(0, whichList.length);
+                    int rand = whichList[whichIndex];
+                    newList2.add(rand);
+                    finalArrayList.add(newList2);
+                }
+                while (newList3.size() < sampleSize) {
+                    int[] whichList = getRandomList(3);
+                    int whichIndex = ThreadLocalRandom.current().nextInt(0, whichList.length);
+                    int rand = whichList[whichIndex];
+                    newList3.add(rand);
+                    finalArrayList.add(newList3);
+                }
             }
         }
         else if (lists == 4) {
-            while (finalList.size() < sampleSize) {
-                int[] whichList = getRandomList(4);
-                int rand = ThreadLocalRandom.current().nextInt(0, whichList.length);
-                finalList.add(whichList[rand]);
+            while (finalArrayList.size() < lists) {
+                while (newList.size() < sampleSize) {
+                    int[] whichList = getRandomList(1);
+                    int whichIndex = ThreadLocalRandom.current().nextInt(0, whichList.length);
+                    int rand = whichList[whichIndex];
+                    newList.add(rand);
+                    finalArrayList.add(newList);
+                }
+                while (newList2.size() < sampleSize) {
+                    int[] whichList = getRandomList(2);
+                    int whichIndex = ThreadLocalRandom.current().nextInt(0, whichList.length);
+                    int rand = whichList[whichIndex];
+                    newList2.add(rand);
+                    finalArrayList.add(newList2);
+                }
+                while (newList3.size() < sampleSize) {
+                    int[] whichList = getRandomList(3);
+                    int whichIndex = ThreadLocalRandom.current().nextInt(0, whichList.length);
+                    int rand = whichList[whichIndex];
+                    newList3.add(rand);
+                    finalArrayList.add(newList3);
+                }
+                while (newList4.size() < sampleSize) {
+                    int[] whichList = getRandomList(4);
+                    int whichIndex = ThreadLocalRandom.current().nextInt(0, whichList.length);
+                    int rand = whichList[whichIndex];
+                    newList4.add(rand);
+                    finalArrayList.add(newList4);
+                }
             }
         }
     }
