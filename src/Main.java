@@ -59,7 +59,7 @@ public class Main {
                     " for generic person 3\nenter 4 for generic person 4");
             choice = in.nextInt();
 
-            System.out.println("enter the number of lists to be included::");
+            System.out.println("enter the number of lists to be included (max of 4)::");
             lists = in.nextInt();
 
             System.out.println("enter the sample size::");
