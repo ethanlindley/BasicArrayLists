@@ -14,6 +14,8 @@ public class Main {
     to pull sample data from.  These lists will be filled with random numbers from that user’s array.
      */
 
+    // let's define some of our lists which contain all of the data that our user's list will pull from
+
     private int[] array1 = {60, 60, 60, 60, 60, 60, 58, 58, 58, 58, 58, 59, 59, 59, 59, 59, 61, 61, 61, 61, 61, 62, 62,
             62, 62, 62, 56, 56, 56, 56, 57, 57, 57, 57, 63, 63, 63, 63, 64, 64, 64, 64, 55, 55, 55, 65, 65, 65, 53, 53,
             54, 54, 66, 66, 67, 67, 51, 52, 68, 69};
@@ -31,18 +33,29 @@ public class Main {
             40, 40, 40, 40, 40, 40, 70, 70, 70, 70, 70, 70, 70, 70, 10, 10, 10, 10, 10, 10, 85, 85, 85, 85, 5, 5, 5,
             50, 50, 50, 0, 0, 15, 15, 75, 75, 80, 80, 90, 90, 45};
 
+    /*
+    finalList is an ArrayList that will contain the user's sample data
+    which we will eventually pull from the other lists using the methods
+    below
+     */
+
     private ArrayList<Integer> finalList = new ArrayList<>();
 
-    // should this method just be contained within the main method?
-    // keep it static for now
+    // should this method's contents just be apart of the main method?
     private void mainMenu() {
         Scanner in;
         Integer choice, lists, sampleSize;
 
         in = new Scanner(System.in);
 
+        /*
+        for now, we will allow the program to run forever
+        but in the future, i will have the program give the user
+        the option to continue running the program or exit once through
+        */
         while (true) {
-            System.out.println("enter 1 for jimmy\nenter 2 for johnny\nenter 3 for john\nenter 4 for jimbo");
+            System.out.println("enter 1 for generic person 1\nenter 2 for generic person 2\nenter 3" +
+                    " for generic person 3\nenter 4 for generic person 4");
             choice = in.nextInt();
 
             System.out.println("enter the number of lists to be included::");
@@ -62,6 +75,8 @@ public class Main {
         System.out.println("\nfinal list for:: " + name);
 
         for (Integer i: finalList) {
+            // iterate through each value stored in the
+            // final list and spit it back to the user
             System.out.println(i);
         }
 
@@ -69,10 +84,17 @@ public class Main {
     }
 
     private int[] getRandomList(Integer howMany) {
+        /*
+        using the ThreadLocalRandom import module, we can randomize which list
+        and what number we wish to choose
+
+        i decided to go ahead and create this method as the setFinalList was
+        cluttered enough as it was
+         */
+
         int[] whichList;
-        whichList = array1;
+        whichList = array1; // the default list is the first list defined above
         int randList = ThreadLocalRandom.current().nextInt(0, howMany + 1);
-        System.out.println(randList);
 
         if (randList == 1) {
             whichList = array1;
@@ -94,10 +116,17 @@ public class Main {
     }
 
     private void setFinalList(List<Integer> finalList, Integer lists, Integer sampleSize) {
+        /*
+        here, we will attempt to finalize the user's data in our list
+
+        notice that we call the method getRandomList, which can be found above
+        */
+
         if (lists == 1) {
             while (finalList.size() < sampleSize) {
-                int rand = ThreadLocalRandom.current().nextInt(0, array1.length);
-                finalList.add(array1[rand]);
+                int[] whichList = getRandomList(1);
+                int rand = ThreadLocalRandom.current().nextInt(0, whichList.length);
+                finalList.add(whichList[rand]);
             }
         }
         else if (lists == 2) {
@@ -125,30 +154,33 @@ public class Main {
 
     private String getName(Integer choice) {
         String name;
-        name = "";
+        name = ""; // initialize the variable as an empty string, will get overridden in other scopes
 
         if (choice == 1) {
-            name = "jimmy";
+            name = "generic person 1";
             return name;
         }
         else if (choice == 2) {
-            name = "johnny";
+            name = "generic person 2";
             return name;
         }
         else if (choice == 3) {
-            name = "john";
+            name = "generic person 3";
             return name;
         }
         else if (choice == 4) {
-            name = "jimbo";
+            name = "generic person 4";
             return name;
         }
         return name;
     }
 
     public static void main(String[] args) {
-        // cheeky workaround for calling a non static method
-        // from our main static method ;)
+        /*
+        cheeky workaround for calling a non static method from
+        our main static method that i was not aware of before!!
+        ;)
+         */
         Main x = new Main();
         x.mainMenu();
     }
